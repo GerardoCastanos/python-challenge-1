@@ -63,30 +63,40 @@ Customer_Orders["Orders"][0]["Items"].append({
         "Item_Name": [],
         "Item_Quantity": [],
         "Item_Price": []
-    });
+    }); 
+# Launch the store and present a greeting to the customer
+print("Welcome to the [Fancy Name].")
+while True:
 
-# Print Sub-Menu (Unformatted)
-# SubMenu={}
-# menu_id = 1
-# for key in menu.keys():
-#     print(f"{menu_id}: {key}")
-#     SubMenu[menu_id] = key
-#     menu_id +=1
+    # Print Categories (Formatted)
+    # Display the heading of the Categories
+    print("ID | Category |")
+    print("---------------")
+    Categories = {}
+    menu_id = 1
 
-# Print Sub-Menu (Formatted)
-# Display the heading of the Categories
-print("ID | Category |")
-print("---------------")
-subMenu={}
-menu_id = 1
-# Print sub_Menu
-for key in menu.keys():
-    num_category_spaces = 8 -len(key)
-    category_spaces = " " *num_category_spaces
-    print(f"{menu_id}  | "+f"{key}{category_spaces} |")
-    subMenu[menu_id] = key
-    menu_id +=1
+    for key in menu.keys():
+        num_category_spaces = 8 -len(key)
+        category_spaces = " " *num_category_spaces
+        print(f"{menu_id}  | "+f"{key}{category_spaces} |")
+        Categories[menu_id] = key
+        menu_id +=1
 
-#Input menu_selection
-menu_selection = int(input ("Select an option(IDmenu_id): "))
-print(f"{subMenu[menu_selection]}")
+    # 2. After the sub-menu is printed, prompt the customer to enter their 
+    # selection from the menu, saving it as a variable menu_selection.
+    menu_selection = (
+        input ('Select an option (menu_id): or type "any key" to exit:  ')
+     )
+
+    # 3. Use input validation to check if the customer input menu_selection is  
+    # a number. If it isn't, print an error message. If it is a number, convert  
+    # the input to an integer and use it to check if it is in the keys of 
+    # menu_items.
+    if menu_selection.isdigit():
+        menu_selection = int(menu_selection)
+        print ("\n" * 1) #For several Lines
+        print(f"{Categories[menu_selection]}")
+        print () #For single Lines
+    else:
+            break
+
