@@ -49,54 +49,103 @@ menu = {
         "Fried banana": 4.49
     }
 }
-# 1. Set up order list. Order list will store a list of dictionaries for
-# menu item name, item price, and quantity ordered
-# Create Empty Dictionary
-Customer_Orders = {}
-     # Create first Layer Orders. "Customer_Orders" is a collection of "Orders"
-Customer_Orders["Orders"]=[]
-     # Add a new "Key" in "Orders" to add "Items".
-Customer_Orders["Orders"].append({"Items": []}) 
-     # Each Item has a "Category", "Description", "Quantity" and "Price"
-Customer_Orders["Orders"][0]["Items"].append({
-        "Item_Category": [],
-        "Item_Name": [],
-        "Item_Quantity": [],
-        "Item_Price": []
-    }); 
-# Launch the store and present a greeting to the customer
-print("Welcome to the [Fancy Name].")
+#For fun function to add the dashes
+def separator():
+    """
+    Small function to add the dashes
+    """
+    print("-" * 79)
+
+#1. Create an empty list
+Customer_Order = {
+    "Order":{
+        "Item_Name",
+        "Item_Price",
+        "Quantity"
+    }}
+#Initialize Global While Loop
 while True:
 
-    # Print Categories (Formatted)
-    # Display the heading of the Categories
-    print("ID | Category |")
-    print("---------------")
-    Categories = {}
-    menu_id = 1
-
+#2. Welcome message and submenu
+    separator()
+    print ("Welcome to the Python Challenge food truck")
+    separator()
+    i = 1 #Initialize variable for submenu ID
+    menu_items = {}
     for key in menu.keys():
-        num_category_spaces = 8 -len(key)
-        category_spaces = " " *num_category_spaces
-        print(f"{menu_id}  | "+f"{key}{category_spaces} |")
-        Categories[menu_id] = key
-        menu_id +=1
-
-    # 2. After the sub-menu is printed, prompt the customer to enter their 
-    # selection from the menu, saving it as a variable menu_selection.
-    menu_selection = (
-        input ('Select an option (menu_id): or type "any key" to exit:  ')
-     )
-
-    # 3. Use input validation to check if the customer input menu_selection is  
-    # a number. If it isn't, print an error message. If it is a number, convert  
-    # the input to an integer and use it to check if it is in the keys of 
-    # menu_items.
-    if menu_selection.isdigit():
-        menu_selection = int(menu_selection)
-        print ("\n" * 1) #For several Lines
-        print(f"{Categories[menu_selection]}")
-        print () #For single Lines
+        print(f"{i} : {key}")
+        menu_items[i] = key
+        i += 1    
+    separator()
+    #3. Prompt the user to make a selection
+    menu_category = input ("Select a category from the menu: ")
+    #4. Check if customer input is valid and convert to integer
+    if menu_category.isdigit():
+        menu_category = int(menu_category)
+        #4.1 use it to check of its in keys of menu_items
+        if menu_category in menu_items.keys():
+            menu_category_name = menu_items[menu_category]
+            print(f"You selected {menu_category_name}")
+            i = 1
+            menu_items = {}
+            print("Item # | Item name                | Price")
+            print("-------|--------------------------|-------")
+            for key, value in menu[menu_category_name].items():
+                # Check if the menu item is a dictionary or table
+                if type(value) is dict:
+                    for key2, value2 in value.items():
+                        num_item_spaces = 24 - len(key + key2) - 3
+                        item_spaces = " " * num_item_spaces
+                        print(
+                            f"{i}      | {key} - {key2}{item_spaces} |"
+                            f" ${value2}"
+                            )
+                        menu_items[i] = {
+                            "Item name": key + " - " + key2,
+                            "Price": value2
+                        }
+                        i += 1 
+                else:
+                    num_item_spaces = 24 - len(key)
+                    item_spaces = " " * num_item_spaces
+                    print(f"{i}      | {key}{item_spaces} | ${value}")
+                    menu_items[i] = {
+                        "Item name": key,
+                        "Price": value
+                    }
+                    i += 1
+                    separator()                    
+            item_selection = input(
+                f"Which {menu_category_name.lower()} would you like to order?: "
+            )
+            #4.2 Ask the customer the quanity and let them know about the 
+            # default.
+            print(
+                'Note below: | If the input in "Quantity" is invalid or empty '
+                'it will default to 1')
+            quantity = input("Quantity: ")
+            #Append order to Customer_Order Dictionary
+            Customer_Order = {
+                "New_Order": [
+                    menu_category_name,
+                    item_selection,
+                    quantity
+                ]}
+            #4.3 Check that the customer input is a number if not quantity = 1
+            if not quantity.isdigit():
+                quantity = 1
+                print ("Invalid input. Quantity will default to 1")
+        else:
+            print("This is not a valid option1")
     else:
-            break
+        print (f"{menu_category} is not a number")
+    separator()
+#########################
+    print(f'{Customer_Order["New_Order"]}')
+    Close_Menu = input ("Do you want to order again? (y/n)")
+    if Close_Menu == "n":
+        break
 
+# Termine hasta crear la orden. Necesito agregar el nombre del producto en la 
+# orden New_Order. Tambien me di cuenta que me hace falta validar que la opción 
+# escogida esté en las listas de menu y productos.
