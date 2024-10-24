@@ -198,6 +198,7 @@ Total_Price = round(sum(float(item['Quantity']) * item['Price']\
                         for item\
                               in Order),2)
 print("-" * 46)
-print(f"Your total is ${Total_Price}")
+Total_Price_Spaces = " " * 12
+print(f"{' ' * 12}Your total is | ${Total_Price}\n")
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
