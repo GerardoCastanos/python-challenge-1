@@ -1,4 +1,4 @@
-# Menu dictionary
+## Menu dictionary
 menu = {
     "Snacks": {
         "Cookie": .99,
@@ -52,13 +52,7 @@ menu = {
 
 # 1. Set up order list. Order list will store a list of dictionaries for
 # menu item name, item price, and quantity ordered
-Customer_Orders = {"Order":{
-    "Items":{
-        "Item_Name",
-        "Item_Price",
-        "Quantity"
-    }
-}}
+
 
 # Launch the store and present a greeting to the customer
 print("Welcome to the variety food truck.")
